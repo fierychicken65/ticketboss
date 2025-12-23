@@ -14,7 +14,13 @@ TicketBoss is a robust Event Ticketing API designed to handle high-concurrency r
     ```bash
     npm install
     ```
-3.  **Database Setup**:
+3.  **Environment Setup**:
+    Create a `.env` file in the root directory:
+    ```env
+    DATABASE_URL="file:./dev.db"
+    ```
+
+4.  **Database Setup**:
     Initialize the SQLite database and generate the Prisma client:
     ```bash
     npx prisma generate
