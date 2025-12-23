@@ -1,14 +1,28 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  eventId        String        @id
+  name           String
+  totalSeats     Int
+  availableSeats Int
+  version        Int
+  reservations   Reservation[]
+}
+
+model Reservation {
+  reservationId String   @id @default(cuid())
+  eventId       String
+  partnerId     String
+  seats         Int
+  status        String
+  createdAt     DateTime @default(now())
+
+  event Event @relation(fields: [eventId], references: [eventId])
 }
