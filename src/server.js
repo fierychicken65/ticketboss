@@ -1,4 +1,5 @@
 const express = require("express");
+const seedEvent = require("./db/seedEvent");
 
 const app = express();
 app.use(express.json());
@@ -9,6 +10,11 @@ app.get("/health", (req, res) => {
 
 const PORT = 3000;
 
-app.listen(PORT, () => {
-    console.log(`Ticketboss running on port ${PORT}`);
-});
+async function startServer(){
+    await seedEvent();
+    app.listen(PORT, () => {
+        console.log(`Ticketboss running on port ${PORT}`);
+    });
+}
+
+startServer();
